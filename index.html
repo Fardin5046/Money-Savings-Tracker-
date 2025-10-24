@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Money Saver</title>
+  <meta name="theme-color" content="#0ea5e9">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="assets/icon-192.png" sizes="192x192">
+  <link rel="apple-touch-icon" href="assets/icon-192.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <meta name="description" content="Simple, beautiful, installable money saving tracker.">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="app-header">
+      <div class="brand">
+        <img src="assets/icon-192.png" alt="Money Saver icon" class="brand-icon">
+        <div>
+          <h1>Money Saver</h1>
+          <p class="tagline">Track savings & spending • Offline • Installable</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button id="installBtn" class="btn secondary" aria-label="Install app">Install</button>
+        <button id="themeToggle" class="btn ghost" aria-label="Toggle theme">🌗</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="balance-card glass">
+        <div class="balance-top">
+          <span class="label">Total Balance</span>
+          <span id="lastUpdated" class="muted"></span>
+        </div>
+        <div class="balance-row">
+          <h2 id="balance">৳0</h2>
+        </div>
+        <div class="balance-breakdown">
+          <div><span class="muted">Saved</span><strong id="totalSaved">৳0</strong></div>
+          <div><span class="muted">Spent</span><strong id="totalSpent">৳0</strong></div>
+        </div>
+      </section>
+
+      <section class="forms-grid">
+        <form id="saveForm" class="card glass">
+          <h3>Add to Savings</h3>
+          <div class="field">
+            <label for="saveAmount">Amount</label>
+            <input type="number" id="saveAmount" inputmode="decimal" min="0" step="1" placeholder="e.g., 30">
+          </div>
+          <div class="field">
+            <label for="saveNote">Note (optional)</label>
+            <input type="text" id="saveNote" maxlength="80" placeholder="Salary, pocket money...">
+          </div>
+          <div class="field">
+            <label for="saveDate">Date</label>
+            <input type="date" id="saveDate">
+          </div>
+          <button class="btn primary" type="submit">+ Add Savings</button>
+        </form>
+
+        <form id="spendForm" class="card glass">
+          <h3>Add Spending</h3>
+          <div class="field">
+            <label for="spendAmount">Amount</label>
+            <input type="number" id="spendAmount" inputmode="decimal" min="0" step="1" placeholder="e.g., 120">
+          </div>
+          <div class="field">
+            <label for="spendNote">Note (optional)</label>
+            <input type="text" id="spendNote" maxlength="80" placeholder="Snacks, transport...">
+          </div>
+          <div class="field">
+            <label for="spendDate">Date</label>
+            <input type="date" id="spendDate">
+          </div>
+          <button class="btn danger" type="submit">– Add Spending</button>
+        </form>
+      </section>
+
+      <section class="tools-row">
+        <div class="left">
+          <label for="currency">Currency</label>
+          <select id="currency">
+            <option value="BDT" selected>BDT (৳)</option>
+            <option value="INR">INR (₹)</option>
+            <option value="USD">USD ($)</option>
+            <option value="EUR">EUR (€)</option>
+          </select>
+          <button id="exportBtn" class="btn ghost">Export Data</button>
+          <label for="importFile" class="btn ghost">Import Data</label>
+          <input id="importFile" type="file" accept="application/json" hidden>
+        </div>
+        <div class="right">
+          <input id="search" type="search" placeholder="Search notes…" aria-label="Search history">
+          <select id="filterType" aria-label="Filter type">
+            <option value="all">All</option>
+            <option value="save">Savings</option>
+            <option value="spend">Spending</option>
+          </select>
+          <select id="sort" aria-label="Sort">
+            <option value="newest">Newest</option>
+            <option value="oldest">Oldest</option>
+            <option value="amountHigh">Amount: High → Low</option>
+            <option value="amountLow">Amount: Low → High</option>
+          </select>
+        </div>
+      </section>
+
+      <section class="history card glass">
+        <div class="history-head">
+          <h3>History</h3>
+          <button id="clearAll" class="btn text danger-text">Clear All</button>
+        </div>
+        <ul id="historyList" class="history-list" aria-live="polite"></ul>
+      </section>
+    </main>
+
+    <footer class="app-footer">
+      <span>Made with ❤️ — works offline & installs on mobile</span>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
